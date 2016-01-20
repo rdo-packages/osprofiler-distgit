@@ -1,3 +1,5 @@
-# UUID                                  	Group Name
-#
-4ac763487a89c6b3cbd3c007c2eeecc89ce6a21c	osprofiler-distgit-ptl
+# UUID          Group Name
+6ddfecad023c6f4fa3ac8c4d2583c502ea675a73 	Non-Interactive Users
+2d61516116abfc8887fce4630322821597a52fdb       	osprofiler-distgit-core
+4ac763487a89c6b3cbd3c007c2eeecc89ce6a21c        	osprofiler-distgit-ptl
+global:Registered-Users		Registered Users
