@@ -53,12 +53,14 @@ rm -rf html/.{doctrees,buildinfo}
 %{__python2} setup.py install --skip-build --root %{buildroot}
 
 %files
-%doc README.rst LICENSE
+%doc README.rst
+%license LICENSE
 %{_bindir}/osprofiler
 %{python2_sitelib}/%{pypi_name}
 %{python2_sitelib}/%{pypi_name}-*.egg-info
 
 %files doc
-%doc LICENSE html
+%doc html
+%license LICENSE
 
 %changelog
