@@ -1,3 +1,4 @@
+%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 # Created by pyp2rpm-1.1.0b
 %global pypi_name osprofiler
 
