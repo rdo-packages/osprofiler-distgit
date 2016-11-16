@@ -16,6 +16,12 @@ BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
 BuildRequires:  python-pbr
 
+Requires: python-netaddr
+Requires: python-oslo-concurrency
+Requires: python-oslo-log
+Requires: python-oslo-messaging
+Requires: python-oslo-utils
+Requires: python-requests
 Requires: python-six
 Requires: python-webob
 
