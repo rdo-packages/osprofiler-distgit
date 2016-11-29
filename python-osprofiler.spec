@@ -2,6 +2,10 @@
 # Created by pyp2rpm-1.1.0b
 %global pypi_name osprofiler
 
+%if 0%{?fedora} >= 24
+%global with_python3 1
+%endif
+
 Name:           python-%{pypi_name}
 Version:        XXX
 Release:        XXX
@@ -16,6 +20,13 @@ BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
 BuildRequires:  python-pbr
 
+%description
+OSProfiler is an OpenStack cross-project profiling library.
+
+%package -n python2-%{pypi_name}
+Summary:    OpenStack Profiler Library
+%{?python_provide:%python_provide python2-%{pypi_name}}
+
 Requires: python-netaddr
 Requires: python-oslo-concurrency
 Requires: python-oslo-log
@@ -25,9 +36,8 @@ Requires: python-requests
 Requires: python-six
 Requires: python-webob
 
-%description
+%description -n python2-%{pypi_name}
 OSProfiler is an OpenStack cross-project profiling library.
-
 
 %package doc
 Summary:    Documentation for the OpenStack Profiler Library
@@ -41,6 +51,29 @@ BuildRequires:  git
 Documentation for the OpenStack Profiler Library
 
 
+%if 0%{?with_python3}
+%package -n python3-%{pypi_name}
+Summary:    OpenStack Profiler Library
+%{?python_provide:%python_provide python3-%{pypi_name}}
+
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-pbr
+
+Requires:       python3-netaddr
+Requires:       python3-oslo-concurrency
+Requires:       python3-oslo-log
+Requires:       python3-oslo-messaging
+Requires:       python3-oslo-utils
+Requires:       python3-requests
+Requires:       python3-six
+Requires:       python3-webob
+
+%description -n python3-%{pypi_name}
+OSProfiler is an OpenStack cross-project profiling library.
+%endif
+
+
 %prep
 %setup -q -n %{pypi_name}-%{upstream_version}
 # Let RPM handle the dependencies
@@ -49,7 +82,10 @@ rm -f requirements.txt
 rm -rf %{pypi_name}.egg-info
 
 %build
-%{__python2} setup.py build
+%py2_build
+%if 0%{?with_python3}
+%py3_build
+%endif
 
 # generate html docs
 sphinx-build doc/source html
@@ -57,9 +93,15 @@ sphinx-build doc/source html
 rm -rf html/.{doctrees,buildinfo}
 
 %install
-%{__python2} setup.py install --skip-build --root %{buildroot}
+%if 0%{?with_python3}
+%py3_install
+mv %{buildroot}%{_bindir}/osprofiler %{buildroot}%{_bindir}/osprofiler-%{python3_version}
+ln -s ./osprofiler-%{python3_version} %{buildroot}%{_bindir}/osprofiler-3
+%endif
 
-%files
+%py2_install
+
+%files -n python2-%{pypi_name}
 %doc README.rst
 %license LICENSE
 %{_bindir}/osprofiler
@@ -69,5 +111,15 @@ rm -rf html/.{doctrees,buildinfo}
 %files doc
 %doc html
 %license LICENSE
+
+%if 0%{?with_python3}
+%files -n python3-%{pypi_name}
+%doc README.rst
+%license LICENSE
+%{_bindir}/osprofiler-3
+%{_bindir}/osprofiler-%{python3_version}
+%{python3_sitelib}/%{pypi_name}
+%{python3_sitelib}/%{pypi_name}-*.egg-info
+%endif
 
 %changelog
