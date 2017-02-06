@@ -28,10 +28,10 @@ Summary:    OpenStack Profiler Library
 %{?python_provide:%python_provide python2-%{pypi_name}}
 
 Requires: python-netaddr
-Requires: python-oslo-concurrency
-Requires: python-oslo-log
-Requires: python-oslo-messaging
-Requires: python-oslo-utils
+Requires: python-oslo-concurrency >= 3.8.0
+Requires: python-oslo-log >= 3.11.0
+Requires: python-oslo-messaging >= 5.2.0
+Requires: python-oslo-utils >= 3.16.0
 Requires: python-requests
 Requires: python-six
 Requires: python-webob
@@ -61,10 +61,10 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-pbr
 
 Requires:       python3-netaddr
-Requires:       python3-oslo-concurrency
-Requires:       python3-oslo-log
-Requires:       python3-oslo-messaging
-Requires:       python3-oslo-utils
+Requires:       python3-oslo-concurrency >= 3.8.0
+Requires:       python3-oslo-log >= 3.11.0
+Requires:       python3-oslo-messaging >= 5.2.0
+Requires:       python3-oslo-utils >= 3.16.0
 Requires:       python3-requests
 Requires:       python3-six
 Requires:       python3-webob
