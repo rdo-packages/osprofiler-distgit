@@ -44,7 +44,7 @@ Summary:    Documentation for the OpenStack Profiler Library
 Group:      Documentation
 
 BuildRequires:  python-sphinx
-BuildRequires:  python-oslo-sphinx
+BuildRequires:  python-openstackdocstheme
 BuildRequires:  git
 
 %description doc
@@ -75,7 +75,7 @@ OSProfiler is an OpenStack cross-project profiling library.
 
 
 %prep
-%setup -q -n %{pypi_name}-%{upstream_version}
+%autosetup -n %{pypi_name}-%{upstream_version} -S git
 # Let RPM handle the dependencies
 rm -f requirements.txt
 # Remove bundled egg-info
@@ -88,9 +88,9 @@ rm -rf %{pypi_name}.egg-info
 %endif
 
 # generate html docs
-sphinx-build doc/source html
+python setup.py build_sphinx -b html
 # remove the sphinx-build leftovers
-rm -rf html/.{doctrees,buildinfo}
+rm -rf doc/build/html/.{doctrees,buildinfo}
 
 %install
 %if 0%{?with_python3}
@@ -109,7 +109,7 @@ ln -s ./osprofiler-%{python3_version} %{buildroot}%{_bindir}/osprofiler-3
 %{python2_sitelib}/%{pypi_name}-*.egg-info
 
 %files doc
-%doc html
+%doc doc/build/html
 %license LICENSE
 
 %if 0%{?with_python3}
