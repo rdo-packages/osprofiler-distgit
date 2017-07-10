@@ -123,3 +123,4 @@ ln -s ./osprofiler-%{python3_version} %{buildroot}%{_bindir}/osprofiler-3
 %endif
 
 %changelog
+# REMOVEME: error caused by commit http://git.openstack.org/cgit/openstack/osprofiler/commit/?id=5d11d7bf5d47ee0ee65f923ae904ca004f5d8ece
