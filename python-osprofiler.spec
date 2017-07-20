@@ -1,6 +1,7 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 # Created by pyp2rpm-1.1.0b
 %global pypi_name osprofiler
+%global with_doc 1
 
 %if 0%{?fedora} >= 24
 %global with_python3 1
@@ -16,6 +17,7 @@ URL:            http://www.openstack.org/
 Source0:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
+BuildRequires:  git
 BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
 BuildRequires:  python-pbr
@@ -39,16 +41,17 @@ Requires: python-webob
 %description -n python2-%{pypi_name}
 OSProfiler is an OpenStack cross-project profiling library.
 
+%if 0%{?with_doc}
 %package doc
 Summary:    Documentation for the OpenStack Profiler Library
 Group:      Documentation
 
 BuildRequires:  python-sphinx
 BuildRequires:  python-openstackdocstheme
-BuildRequires:  git
 
 %description doc
 Documentation for the OpenStack Profiler Library
+%endif
 
 
 %if 0%{?with_python3}
@@ -87,10 +90,12 @@ rm -rf %{pypi_name}.egg-info
 %py3_build
 %endif
 
+%if 0%{?with_doc}
 # generate html docs
 python setup.py build_sphinx -b html
 # remove the sphinx-build leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
+%endif
 
 %install
 %if 0%{?with_python3}
@@ -108,9 +113,11 @@ ln -s ./osprofiler-%{python3_version} %{buildroot}%{_bindir}/osprofiler-3
 %{python2_sitelib}/%{pypi_name}
 %{python2_sitelib}/%{pypi_name}-*.egg-info
 
+%if 0%{?with_doc}
 %files doc
 %doc doc/build/html
 %license LICENSE
+%endif
 
 %if 0%{?with_python3}
 %files -n python3-%{pypi_name}
