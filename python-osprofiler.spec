@@ -8,8 +8,8 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        XXX
-Release:        XXX
+Version:        1.11.0
+Release:        1%{?dist}
 Summary:        OpenStack Profiler Library
 
 License:        ASL 2.0
@@ -130,3 +130,6 @@ ln -s ./osprofiler-%{python3_version} %{buildroot}%{_bindir}/osprofiler-3
 %endif
 
 %changelog
+* Mon Aug 14 2017 Alfredo Moralejo <amoralej@redhat.com> 1.11.0-1
+- Update to 1.11.0
+
