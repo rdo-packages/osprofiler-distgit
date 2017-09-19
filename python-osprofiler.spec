@@ -62,6 +62,7 @@ Summary:    OpenStack Profiler Library
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pbr
+BuildRequires:  openstack-macros
 
 Requires:       python3-netaddr
 Requires:       python3-oslo-concurrency >= 3.8.0
@@ -80,7 +81,7 @@ OSProfiler is an OpenStack cross-project profiling library.
 %prep
 %autosetup -n %{pypi_name}-%{upstream_version} -S git
 # Let RPM handle the dependencies
-rm -f requirements.txt
+%py_req_cleanup
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
