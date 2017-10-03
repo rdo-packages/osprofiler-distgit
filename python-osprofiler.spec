@@ -7,6 +7,9 @@
 %global with_python3 1
 %endif
 
+%global common_desc OSProfiler is an OpenStack cross-project profiling library.
+
+
 Name:           python-%{pypi_name}
 Version:        XXX
 Release:        XXX
@@ -23,7 +26,7 @@ BuildRequires:  python-setuptools
 BuildRequires:  python-pbr
 
 %description
-OSProfiler is an OpenStack cross-project profiling library.
+%{common_desc}
 
 %package -n python2-%{pypi_name}
 Summary:    OpenStack Profiler Library
@@ -39,7 +42,7 @@ Requires: python-six
 Requires: python-webob
 
 %description -n python2-%{pypi_name}
-OSProfiler is an OpenStack cross-project profiling library.
+%{common_desc}
 
 %if 0%{?with_doc}
 %package doc
@@ -73,7 +76,7 @@ Requires:       python3-six
 Requires:       python3-webob
 
 %description -n python3-%{pypi_name}
-OSProfiler is an OpenStack cross-project profiling library.
+%{common_desc}
 %endif
 
 
