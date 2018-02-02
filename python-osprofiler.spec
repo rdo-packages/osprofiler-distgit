@@ -22,8 +22,8 @@ BuildArch:      noarch
 
 BuildRequires:  git
 BuildRequires:  python2-devel
-BuildRequires:  python-setuptools
-BuildRequires:  python-pbr
+BuildRequires:  python2-setuptools
+BuildRequires:  python2-pbr
 
 %description
 %{common_desc}
@@ -32,14 +32,20 @@ BuildRequires:  python-pbr
 Summary:    OpenStack Profiler Library
 %{?python_provide:%python_provide python2-%{pypi_name}}
 
+Requires: python2-oslo-concurrency >= 3.8.0
+Requires: python2-oslo-serialization >= 2.18.0
+Requires: python2-prettytable >= 0.7.1
+Requires: python2-oslo-messaging >= 5.2.0
+Requires: python2-oslo-utils >= 3.16.0
+Requires: python2-requests
+Requires: python2-six
+%if 0%{?fedora} > 0
+Requires: python2-netaddr
+Requires: python2-webob
+%else
 Requires: python-netaddr
-Requires: python-oslo-concurrency >= 3.8.0
-Requires: python-oslo-log >= 3.11.0
-Requires: python-oslo-messaging >= 5.2.0
-Requires: python-oslo-utils >= 3.16.0
-Requires: python-requests
-Requires: python-six
 Requires: python-webob
+%endif
 
 %description -n python2-%{pypi_name}
 %{common_desc}
@@ -49,8 +55,8 @@ Requires: python-webob
 Summary:    Documentation for the OpenStack Profiler Library
 Group:      Documentation
 
-BuildRequires:  python-sphinx
-BuildRequires:  python-openstackdocstheme
+BuildRequires:  python2-sphinx
+BuildRequires:  python2-openstackdocstheme
 
 %description doc
 Documentation for the OpenStack Profiler Library
@@ -68,7 +74,8 @@ BuildRequires:  python3-pbr
 
 Requires:       python3-netaddr
 Requires:       python3-oslo-concurrency >= 3.8.0
-Requires:       python3-oslo-log >= 3.11.0
+Requires:       python3-oslo-serialization >= 2.18.0
+Requires:       python3-prettytable >= 0.7.1
 Requires:       python3-oslo-messaging >= 5.2.0
 Requires:       python3-oslo-utils >= 3.16.0
 Requires:       python3-requests
