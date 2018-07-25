@@ -32,11 +32,11 @@ BuildRequires:  python2-pbr
 Summary:    OpenStack Profiler Library
 %{?python_provide:%python_provide python2-%{pypi_name}}
 
-Requires: python2-oslo-concurrency >= 3.8.0
+Requires: python2-oslo-concurrency >= 3.26.0
 Requires: python2-oslo-serialization >= 2.18.0
-Requires: python2-prettytable >= 0.7.1
+Requires: python2-prettytable >= 0.7.2
 Requires: python2-oslo-messaging >= 5.2.0
-Requires: python2-oslo-utils >= 3.16.0
+Requires: python2-oslo-utils >= 3.33.0
 Requires: python2-requests
 Requires: python2-six
 %if 0%{?fedora} > 0
@@ -73,11 +73,11 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-pbr
 
 Requires:       python3-netaddr
-Requires:       python3-oslo-concurrency >= 3.8.0
+Requires:       python3-oslo-concurrency >= 3.26.0
 Requires:       python3-oslo-serialization >= 2.18.0
-Requires:       python3-prettytable >= 0.7.1
+Requires:       python3-prettytable >= 0.7.2
 Requires:       python3-oslo-messaging >= 5.2.0
-Requires:       python3-oslo-utils >= 3.16.0
+Requires:       python3-oslo-utils >= 3.33.0
 Requires:       python3-requests
 Requires:       python3-six
 Requires:       python3-webob
