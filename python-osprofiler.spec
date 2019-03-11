@@ -18,8 +18,8 @@
 
 
 Name:           python-%{pypi_name}
-Version:        XXX
-Release:        XXX
+Version:        2.6.0
+Release:        1%{?dist}
 Summary:        OpenStack Profiler Library
 
 License:        ASL 2.0
@@ -105,3 +105,6 @@ ln -s osprofiler %{buildroot}%{_bindir}/osprofiler-%{pyver}
 %endif
 
 %changelog
+* Mon Mar 11 2019 RDO <dev@lists.rdoproject.org> 2.6.0-1
+- Update to 2.6.0
+
