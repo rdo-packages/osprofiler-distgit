@@ -11,7 +11,7 @@
 
 
 Name:           python-%{pypi_name}
-Version:        2.3.0
+Version:        2.3.1
 Release:        1%{?dist}
 Summary:        OpenStack Profiler Library
 
@@ -140,6 +140,9 @@ ln -s ./osprofiler-%{python3_version} %{buildroot}%{_bindir}/osprofiler-3
 %endif
 
 %changelog
+* Mon Jan 13 2020 RDO <dev@lists.rdoproject.org> 2.3.1-1
+- Update to 2.3.1
+
 * Thu Aug 09 2018 RDO <dev@lists.rdoproject.org> 2.3.0-1
 - Update to 2.3.0
 
