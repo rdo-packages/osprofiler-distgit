@@ -29,6 +29,7 @@ Summary:    OpenStack Profiler Library
 %{?python_provide:%python_provide python3-%{pypi_name}}
 Obsoletes: python2-%{pypi_name} < %{version}-%{release}
 
+Requires: python3-importlib-metadata >= 1.7.0
 Requires: python3-oslo-concurrency >= 3.26.0
 Requires: python3-oslo-serialization >= 2.18.0
 Requires: python3-prettytable >= 0.7.2
