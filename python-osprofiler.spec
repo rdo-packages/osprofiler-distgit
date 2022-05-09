@@ -64,6 +64,7 @@ Summary:    Documentation for the OpenStack Profiler Library
 Group:      Documentation
 
 BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinxcontrib-apidoc
 BuildRequires:  python3-openstackdocstheme
 
 %description doc
