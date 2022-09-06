@@ -51,7 +51,6 @@ Requires: python3-prettytable >= 0.7.2
 Requires: python3-oslo-messaging >= 5.2.0
 Requires: python3-oslo-utils >= 3.33.0
 Requires: python3-requests
-Requires: python3-six
 Requires: python3-netaddr
 Requires: python3-webob
 
