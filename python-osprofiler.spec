@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x2426b928085a020d8a90d0d879ab7008d0896c8a
+%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 # Created by pyp2rpm-1.1.0b
 %global pypi_name osprofiler
@@ -9,8 +9,8 @@
 
 
 Name:           python-%{pypi_name}
-Version:        XXX
-Release:        XXX
+Version:        3.4.3
+Release:        1%{?dist}
 Summary:        OpenStack Profiler Library
 
 License:        ASL 2.0
@@ -112,3 +112,6 @@ ln -s osprofiler %{buildroot}%{_bindir}/osprofiler-3
 %endif
 
 %changelog
+* Tue Sep 13 2022 RDO <dev@lists.rdoproject.org> 3.4.3-1
+- Update to 3.4.3
+
