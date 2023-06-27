@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31f6fd62_e0cfaf63",
+        "filename": "python-osprofiler.spec",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2023-06-27T15:14:49Z",
+      "side": 0,
+      "message": "python3-oslo-messaging is not provided after the patch, leading to missing a bunch of run-time deps.\nIt\u0027s correct as it\u0027s not in requirements.txt upstream [1].\nShould we add it manually to keep upgrade patch compatibility ?\n\n[1] https://github.com/openstack/osprofiler/blob/master/requirements.txt",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 41
+      },
+      "revId": "d23da3c7c4a39670b58c3f78bd5888fc3bc4c290",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
