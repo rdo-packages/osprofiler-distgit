@@ -1,6 +1,8 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
 %global sources_gpg_sign 0x2426b928085a020d8a90d0d879ab7008d0896c8a
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+# we are excluding some BRs from automatic generator
+%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order jaeger-client opentelemetry-exporter-otlp opentelemetry-sdk
 # Created by pyp2rpm-1.1.0b
 %global pypi_name osprofiler
 %global with_doc 1
@@ -13,7 +15,7 @@ Version:        XXX
 Release:        XXX
 Summary:        OpenStack Profiler Library
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://www.openstack.org/
 Source0:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 # Required for tarball sources verification
@@ -31,28 +33,13 @@ BuildRequires:  openstack-macros
 
 BuildRequires:  git-core
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pbr
-
+BuildRequires:  pyproject-rpm-macros
 %description
 %{common_desc}
 
 %package -n python3-%{pypi_name}
 Summary:    OpenStack Profiler Library
-%{?python_provide:%python_provide python3-%{pypi_name}}
 Obsoletes: python2-%{pypi_name} < %{version}-%{release}
-
-%if 0%{?rhel} && 0%{?rhel} < 9
-Requires: python3-importlib-metadata >= 1.7.0
-%endif
-Requires: python3-oslo-concurrency >= 3.26.0
-Requires: python3-oslo-serialization >= 2.18.0
-Requires: python3-prettytable >= 0.7.2
-Requires: python3-oslo-messaging >= 5.2.0
-Requires: python3-oslo-utils >= 3.33.0
-Requires: python3-requests
-Requires: python3-netaddr
-Requires: python3-webob
 
 %description -n python3-%{pypi_name}
 %{common_desc}
@@ -61,10 +48,6 @@ Requires: python3-webob
 %package doc
 Summary:    Documentation for the OpenStack Profiler Library
 Group:      Documentation
-
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinxcontrib-apidoc
-BuildRequires:  python3-openstackdocstheme
 
 %description doc
 Documentation for the OpenStack Profiler Library
@@ -76,23 +59,44 @@ Documentation for the OpenStack Profiler Library
 %{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
 %autosetup -n %{pypi_name}-%{upstream_version} -S git
-# Let RPM handle the dependencies
-rm -f requirements.txt
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+
+sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
+sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
+sed -i /^minversion.*/d tox.ini
+sed -i /^requires.*virtualenv.*/d tox.ini
+sed -i '/sphinx-build/ s/-W//' tox.ini
+
+# Exclude some bad-known BRs
+for pkg in %{excluded_brs};do
+  for reqfile in doc/requirements.txt test-requirements.txt; do
+    if [ -f $reqfile ]; then
+      sed -i /^${pkg}.*/d $reqfile
+    fi
+  done
+done
+# Uncap elasticsearch
+sed -i 's/\(.*elasticsearch>=.*\),\(.*\)/\1/' test-requirements.txt
+
+# Automatic BR generation
+%generate_buildrequires
+%if 0%{?with_doc}
+  %pyproject_buildrequires -t -e %{default_toxenv},docs
+%else
+  %pyproject_buildrequires -t -e %{default_toxenv}
+%endif
 
 %build
-%{py3_build}
+%pyproject_wheel
 
 %if 0%{?with_doc}
 # generate html docs
-sphinx-build-3 -b html doc/source doc/build/html
+%tox -e docs
 # remove the sphinx-build-3 leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %install
-%{py3_install}
+%pyproject_install
 
 # Create a versioned binary for backwards compatibility until everything is pure py3
 ln -s osprofiler %{buildroot}%{_bindir}/osprofiler-3
@@ -103,7 +107,7 @@ ln -s osprofiler %{buildroot}%{_bindir}/osprofiler-3
 %{_bindir}/osprofiler
 %{_bindir}/osprofiler-3
 %{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-*.egg-info
+%{python3_sitelib}/%{pypi_name}-*.dist-info
 
 %if 0%{?with_doc}
 %files doc
