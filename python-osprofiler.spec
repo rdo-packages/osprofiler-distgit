@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x2426b928085a020d8a90d0d879ab7008d0896c8a
+%global sources_gpg_sign 0x815afec729392386480e076dcc0dfe2d21c023c9
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 # we are excluding some BRs from automatic generator
 %global excluded_brs doc8 bandit pre-commit hacking flake8-import-order jaeger-client opentelemetry-exporter-otlp opentelemetry-sdk
@@ -16,8 +16,8 @@
 
 
 Name:           python-%{pypi_name}
-Version:        XXX
-Release:        XXX
+Version:        4.1.0
+Release:        1%{?dist}
 Summary:        OpenStack Profiler Library
 
 License:        Apache-2.0
@@ -122,3 +122,6 @@ ln -s osprofiler %{buildroot}%{_bindir}/osprofiler-3
 %endif
 
 %changelog
+* Mon Sep 04 2023 RDO <dev@lists.rdoproject.org> 4.1.0-1
+- Update to 4.1.0
+
